@@ -21,6 +21,7 @@ class ListItem extends Component {
 			)
 		}
 	}
+	
 	render() {
 		const {title, id} = this.props.library
 		const {expanded} = this.props
