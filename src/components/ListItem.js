@@ -1,16 +1,20 @@
 import React, {Component} from 'react'
-import {Text, TouchableWithoutFeedback, View} from 'react-native'
+import {LayoutAnimation, Text, TouchableWithoutFeedback, UIManager, View} from 'react-native'
 import {connect} from 'react-redux'
 import {CardSection} from './common'
 import * as actions from '../actions'
 
 class ListItem extends Component {
+	constructor(props){
+		super(props)
+		UIManager.setLayoutAnimationEnabledExperimental(true)
+	}
 	renderDescription = () => {
 		const {library, expanded} = this.props
 		if (expanded) {
 			return (
 				<CardSection>
-					<Text>
+					<Text style={{flex: 1}}>
 						{library.description}
 					</Text>
 				</CardSection>
@@ -18,11 +22,13 @@ class ListItem extends Component {
 		}
 	}
 	render() {
-		const {title, description, id} = this.props.library
+		const {title, id} = this.props.library
+		const {expanded} = this.props
 		const {titleStyle} = styles
+		LayoutAnimation.spring()
 		return (
 			<TouchableWithoutFeedback
-				onPress={()=>this.props.selectLibrary(id)}
+				onPress={()=>this.props.selectLibrary(expanded? null: id)}
 			>
 				<View>
 					<CardSection>
